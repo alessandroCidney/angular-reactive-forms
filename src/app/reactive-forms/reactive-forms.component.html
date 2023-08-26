@@ -16,6 +16,36 @@
   <label>
     Sobrenome:
     <input type="text" formControlName="lastName">
+
+    <span
+      class='alert'
+      *ngIf="cadastroForm.get('lastName')?.errors?.['required'] && (cadastroForm.get('lastName')?.touched || cadastroForm.get('lastName')?.dirty)"
+    >
+      O campo é obrigatório
+    </span>
+
+    <span
+      class='alert'
+      *ngIf="cadastroForm.get('lastName')?.errors?.['minlength'] && (cadastroForm.get('lastName')?.touched || cadastroForm.get('lastName')?.dirty)"
+    >
+      O sobrenome deve ter no mínimo
+      {{ cadastroForm.get('lastName')?.errors?.['minlength']?.requiredLength }} caracteres.
+      Atualmente, existem {{ cadastroForm.get('lastName')?.errors?.['minlength']?.actualLength }} caracteres.
+    </span>
+  </label>
+
+  <br><br>
+
+  <label>
+    Email:
+    <input type="email" formControlName="email">
+
+    <span
+      class='alert'
+      *ngIf="cadastroForm.get('email')?.errors && (cadastroForm.get('email')?.touched || cadastroForm.get('email')?.dirty)"
+    >
+      E-mail inválido
+    </span>
   </label>
 
   <!--
@@ -25,10 +55,22 @@
     </p>
   -->
 
+  <!--
+    <p>
+      {{ cadastroForm.get('firstName')?.errors | json }}
+      {{ cadastroForm.get('firstName')?.touched | json }}
+      {{ cadastroForm.get('firstName')?.dirty | json }}
+    </p>
+  -->
+
+  <!--
+    <p>
+      {{ cadastroForm.get('lastName')?.errors | json }}
+    </p>
+  -->
+
   <p>
-    {{ cadastroForm.get('firstName')?.errors | json }}
-    {{ cadastroForm.get('firstName')?.touched | json }}
-    {{ cadastroForm.get('firstName')?.dirty | json }}
+    {{ cadastroForm.get('email')?.errors | json }}
   </p>
 
   <button [disabled]="cadastroForm.invalid">Enviar</button>
